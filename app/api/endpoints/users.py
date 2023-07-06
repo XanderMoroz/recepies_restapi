@@ -1,5 +1,6 @@
 from app.api.schemas import users
-from app.db.utils import users as users_utils
+from app.db.cruds import users as users_utils
+from app.core import security as security_utils
 from app.api.dependencies import get_current_user
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
@@ -19,7 +20,7 @@ async def auth(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
 
-    if not users_utils.validate_password(
+    if not security_utils.validate_password(
         password=form_data.password, hashed_password=user["hashed_password"]
     ):
         raise HTTPException(status_code=400, detail="Incorrect email or password")

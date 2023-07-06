@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from app.core.config import settings
 from app.core.database import database
-from app.api.endpoints import posts, users
+from app.api.endpoints import posts, users, recepies
 
 
 app = FastAPI(
@@ -15,7 +15,7 @@ app = FastAPI(
 
 app.include_router(users.auth_router, prefix="", tags=["auth"])
 app.include_router(posts.post_router, prefix="/posts", tags=["post"])
-
+app.include_router(recepies.recipe_router, prefix="/recipes", tags=["recipe"])
 
 @app.on_event("startup")
 async def startup():

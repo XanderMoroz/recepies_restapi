@@ -1,6 +1,6 @@
 from app.api.schemas.posts import PostDetailsModel, PostModel
 from app.api.schemas.users import User
-from app.db.utils import posts as post_utils
+from app.db.cruds import posts as post_utils
 from app.api.dependencies import get_current_user
 from fastapi import APIRouter, Depends, HTTPException, status
 

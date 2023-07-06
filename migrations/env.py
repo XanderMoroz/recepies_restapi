@@ -10,7 +10,7 @@ from alembic import context
 # add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
 sys.path.append(os.getcwd())
 
-from app.models import posts, users
+from app.db.models import posts, users, recipes
 from app.core import database
 
 # this is the Alembic Config object, which provides
@@ -19,7 +19,7 @@ config = context.config
 
 section = config.config_ini_section
 config.set_section_option(section, "DB_USER", database.DB_USER)
-config.set_section_option(section, "DB_PASS", database.DB_PASSWORD)
+config.set_section_option(section, "DB_PASS", database.DB_PASS)
 config.set_section_option(section, "DB_NAME", database.DB_NAME)
 config.set_section_option(section, "DB_HOST", database.DB_HOST)
 
@@ -31,7 +31,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [users.metadata, posts.metadata]
+target_metadata = [users.metadata, posts.metadata, recipes.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
