@@ -3,13 +3,13 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class PostModel(BaseModel):
+class DesertModel(BaseModel):
     """ Validate request data """
     title: str
-    content: str
+    price: int
 
 
-class PostDetailsModel(PostModel):
+class DesertDetailsModel(DesertModel):
     """ Return response data """
     id: int
     created_at: datetime

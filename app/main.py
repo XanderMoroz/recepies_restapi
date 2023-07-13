@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from app.core.config import settings
 from app.core.database import database
-from app.api.endpoints import posts, users, recepies
+from app.api.endpoints import deserts, users, recepies, orders
 
 
 app = FastAPI(
@@ -13,9 +13,10 @@ app = FastAPI(
     openapi_url="/openapi.json",
     docs_url="/",)
 
-app.include_router(users.auth_router, prefix="", tags=["auth"])
-app.include_router(posts.post_router, prefix="/posts", tags=["post"])
-app.include_router(recepies.recipe_router, prefix="/recipes", tags=["recipe"])
+app.include_router(users.auth_router, prefix="", tags=["Authentication"])
+app.include_router(recepies.recipe_router, prefix="/recipes", tags=["Recipes management"])
+app.include_router(deserts.desert_router, prefix="/deserts", tags=["Desert management"])
+app.include_router(orders.order_router, prefix="/orders", tags=["Order management"])
 
 @app.on_event("startup")
 async def startup():
