@@ -9,6 +9,9 @@ desert_router = APIRouter()
 
 @desert_router.post("/", response_model=DesertDetailsModel, status_code=201)
 async def create_desert(desert: DesertModel, current_user: User = Depends(get_current_user)):
+    """Инструкция для создания нового десерта:
+    - **title**: название
+    - **price**: цена"""
     desert = await desert_utils.create_desert(desert, current_user)
     return desert
 
@@ -22,6 +25,7 @@ async def get_deserts(page: int = 1):
 
 @desert_router.get("/{desert_id}", response_model=DesertDetailsModel)
 async def get_desert(desert_id: int):
+    """**Get desert by id** / Получить десерт по идентификатору"""
     return await desert_utils.get_desert(desert_id)
 
 
@@ -29,6 +33,7 @@ async def get_desert(desert_id: int):
 async def update_desert(
     desert_id: int, desert_data: DesertModel, current_user=Depends(get_current_user)
 ):
+    """**Update desert by id** / Редактировать десерт по идентификатору"""
     desert = await desert_utils.get_desert(desert_id)
     if desert["user_id"] != current_user["id"]:
         raise HTTPException(

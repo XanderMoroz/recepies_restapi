@@ -30,6 +30,11 @@ async def auth(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @auth_router.post("/sign-up", response_model=users.User)
 async def create_user(user: users.UserCreate):
+    """For sign-up fill next fields:
+    - **email**: Адрес електронной почты
+    - **name**: Имя пользователя
+    - **password** Пароль
+    """
     db_user = await users_utils.get_user_by_email(email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -37,5 +42,6 @@ async def create_user(user: users.UserCreate):
 
 
 @auth_router.get("/users/me", response_model=users.UserBase)
-async def read_users_me(current_user: users.User = Depends(get_current_user)):
+async def get_current_user(current_user: users.User = Depends(get_current_user)):
+    """**Get current user** / Получить текущего пользователя"""
     return current_user
