@@ -70,6 +70,7 @@ poetry shell
 poetry install
 ```
 2.4 Создаете файл `.env` и заполняете его по примеру файла `.env.template`
+
 2.5 Применяете миграции в базе данных
 ```sh
 alembic upgrade head
